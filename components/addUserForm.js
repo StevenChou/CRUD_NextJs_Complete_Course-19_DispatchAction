@@ -25,7 +25,7 @@ export default function AddUserForm() {
   }
 
   if (Object.keys(formData).length > 0) {
-    return <Bug message={'Error'}></Bug>
+    return <Bug message={'Error'} />
   }
 
   return (
