@@ -29,7 +29,7 @@ export default function Home() {
           <div className='left flex gap-3'>
             <button
               onClick={handler}
-              className='flex bg-indigo-500 text-white px-4 py-2 border rounded-md hover:bg-grary-50 hover:border-indigo-500 hover:text-gray-800'
+              className='flex bg-indigo-500 text-white px-4 py-2 border rounded-md hover:bg-gray-50 hover:border-indigo-500 hover:text-gray-800'
             >
               Add Employee{' '}
               <span className='px-1'>
