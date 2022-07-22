@@ -9,7 +9,7 @@ export default function Home() {
   const [visible, setVisible] = useState(false)
 
   const handler = () => {
-    setVisible(!visible)
+    setVisible((preState) => !preState)
   }
 
   return (
@@ -40,11 +40,11 @@ export default function Home() {
         </div>
 
         {/* collapsable form */}
-        {visible ? <Form></Form> : <></>}
+        {visible ? <Form /> : <></>}
 
         {/* table */}
         <div className='container mx-auto'>
-          <Table></Table>
+          <Table />
         </div>
       </main>
     </section>
