@@ -41,6 +41,7 @@ export default function Table() {
           </th>
         </tr>
       </thead>
+
       <tbody className='bg-gray-200'>
         {data.map((obj, i) => (
           <Tr {...obj} key={i} />
