@@ -56,8 +56,10 @@ export async function putUser(req, res) {
 
     if (userId && formData) {
       const user = await Users.findByIdAndUpdate(userId, formData)
+
       res.status(200).json(user)
     }
+
     res.status(404).json({ error: 'User Not Selected...!' })
   } catch (error) {
     res.status(404).json({ error: 'Error While Updating the Data...!' })
