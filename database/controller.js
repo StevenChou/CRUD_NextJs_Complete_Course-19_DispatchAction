@@ -73,6 +73,7 @@ export async function deleteUser(req, res) {
 
     if (userId) {
       const user = await Users.findByIdAndDelete(userId)
+
       return res.status(200).json(user)
     }
 
