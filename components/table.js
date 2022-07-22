@@ -7,6 +7,7 @@ import { getUsers } from '../lib/helper'
 import { toggleChangeAction } from '../redux/reducer'
 
 export default function Table() {
+  // first option is the key you specify to the cache memory
   const { isLoading, isError, data, error } = useQuery('users', getUsers)
 
   if (isLoading) {
