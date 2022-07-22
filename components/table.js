@@ -2,7 +2,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useQuery } from 'react-query'
 import { BiEdit, BiTrashAlt } from 'react-icons/bi'
 
-import dummyData from './../database/data.json'
 import { getUsers } from '../lib/helper'
 
 import { toggleChangeAction } from '../redux/reducer'
