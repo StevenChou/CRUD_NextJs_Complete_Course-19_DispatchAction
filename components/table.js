@@ -1,14 +1,21 @@
-import { BiEdit, BiTrashAlt } from 'react-icons/bi'
-import { getUsers } from '../lib/helper'
-import { useQuery } from 'react-query'
 import { useSelector, useDispatch } from 'react-redux'
+import { useQuery } from 'react-query'
+import { BiEdit, BiTrashAlt } from 'react-icons/bi'
+
+import { getUsers } from '../lib/helper'
+
 import { toggleChangeAction } from '../redux/reducer'
 
 export default function Table() {
   const { isLoading, isError, data, error } = useQuery('users', getUsers)
 
-  if (isLoading) return <div>Employee is Loading...</div>
-  if (isError) return <div>Got Error {error}</div>
+  if (isLoading) {
+    return <div>Employee is Loading...</div>
+  }
+
+  if (isError) {
+    return <div>Got Error {error}</div>
+  }
 
   return (
     <table className='min-w-full table-auto'>
