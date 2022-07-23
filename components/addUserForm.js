@@ -1,5 +1,8 @@
 import { useReducer } from 'react'
+import { useQueryClient, useMutation } from 'react-query'
 import { BiPlus } from 'react-icons/bi'
+
+import { addUser, getUsers } from '../lib/helper'
 
 import Success from './success'
 import Bug from './bug'
@@ -12,6 +15,14 @@ const formReducer = (state, event) => {
 }
 
 export default function AddUserForm() {
+  const queryClient = useQueryClient()
+  const addMutation = useMutation(addUser, {
+    onSuccess: () => {
+      // Data Inserted!!
+      queryClient.prefetchQuery('users', getUsers)
+    },
+  })
+
   const [formData, setFormData] = useReducer(formReducer, {})
 
   const handleSubmit = (e) => {
@@ -21,11 +32,32 @@ export default function AddUserForm() {
       return console.log("Don't have Form Data")
     }
 
-    console.log(formData)
+    let { firstname, lastname, email, salary, date, status } = formData
+
+    const model = {
+      name: `${firstname} ${lastname}`,
+      avatar: `https://randomuser.me/api/portraits/men/${Math.floor(
+        Math.random() * 10
+      )}.jpg`,
+      email,
+      salary,
+      date,
+      status: status ?? 'Active',
+    }
+
+    addMutation.mutate(model)
   }
 
-  if (Object.keys(formData).length > 0) {
-    return <Bug message={'Error'} />
+  if (addMutation.isLoading) {
+    return <div>Loading!</div>
+  }
+
+  if (addMutation.isError) {
+    return <Bug message={addMutation.error.message}></Bug>
+  }
+
+  if (addMutation.isSuccess) {
+    return <Success message={'Added Successfully'}></Success>
   }
 
   return (
@@ -39,7 +71,6 @@ export default function AddUserForm() {
           placeholder='FirstName'
         />
       </div>
-
       <div className='input-type'>
         <input
           type='text'
@@ -49,7 +80,6 @@ export default function AddUserForm() {
           placeholder='LastName'
         />
       </div>
-
       <div className='input-type'>
         <input
           type='text'
@@ -59,7 +89,6 @@ export default function AddUserForm() {
           placeholder='Email'
         />
       </div>
-
       <div className='input-type'>
         <input
           type='text'
@@ -69,7 +98,6 @@ export default function AddUserForm() {
           placeholder='Salary'
         />
       </div>
-
       <div className='input-type'>
         <input
           type='date'
@@ -94,7 +122,6 @@ export default function AddUserForm() {
             Active
           </label>
         </div>
-
         <div className='form-check'>
           <input
             type='radio'
@@ -110,7 +137,10 @@ export default function AddUserForm() {
         </div>
       </div>
 
-      <button className='flex justify-center text-md w-2/6 bg-green-500 text-white px-4 py-2 border rounded-md hover:bg-gray-50 hover:border-green-500 hover:text-green-500'>
+      <button
+        type='submit'
+        className='flex justify-center text-md w-2/6 bg-green-500 text-white px-4 py-2 border rounded-md hover:bg-gray-50 hover:border-green-500 hover:text-green-500'
+      >
         Add{' '}
         <span className='px-1'>
           <BiPlus size={24}></BiPlus>
