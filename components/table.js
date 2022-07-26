@@ -4,10 +4,9 @@ import { BiEdit, BiTrashAlt } from 'react-icons/bi'
 
 import { getUsers } from '../lib/helper'
 
-import { toggleChangeAction } from '../redux/reducer'
+import { toggleChangeAction, updateAction } from '../redux/reducer'
 
 export default function Table() {
-  // first option is the key you specify to the cache memory
   const { isLoading, isError, data, error } = useQuery('users', getUsers)
 
   if (isLoading) {
@@ -42,7 +41,6 @@ export default function Table() {
           </th>
         </tr>
       </thead>
-
       <tbody className='bg-gray-200'>
         {data.map((obj, i) => (
           <Tr {...obj} key={i} />
@@ -52,13 +50,16 @@ export default function Table() {
   )
 }
 
-function Tr({ id, name, avatar, email, salary, date, status }) {
+function Tr({ _id, name, avatar, email, salary, date, status }) {
   const visible = useSelector((state) => state.app.client.toggleForm)
   const dispatch = useDispatch()
 
   const onUpdate = () => {
     dispatch(toggleChangeAction())
-    console.log(visible)
+
+    if (visible) {
+      dispatch(updateAction(_id))
+    }
   }
 
   return (

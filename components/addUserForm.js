@@ -7,23 +7,13 @@ import { addUser, getUsers } from '../lib/helper'
 import Success from './success'
 import Bug from './bug'
 
-const formReducer = (state, event) => {
-  return {
-    ...state,
-    [event.target.name]: event.target.value,
-  }
-}
-
-export default function AddUserForm() {
+export default function AddUserForm({ formData, setFormData }) {
   const queryClient = useQueryClient()
   const addMutation = useMutation(addUser, {
     onSuccess: () => {
-      // Data Inserted!!
       queryClient.prefetchQuery('users', getUsers)
     },
   })
-
-  const [formData, setFormData] = useReducer(formReducer, {})
 
   const handleSubmit = (e) => {
     e.preventDefault()
