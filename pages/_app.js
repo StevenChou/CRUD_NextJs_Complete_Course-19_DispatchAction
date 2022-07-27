@@ -27,7 +27,7 @@ function MyApp({ Component, pageProps }) {
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
         <Navbar />
-        <div className='flex gap-6 md:gap-20'>
+        <div className='flex gap-6 md:gap-20 mx-6'>
           <div className='h-[92vh] overflow-hidden xl:hover:overflow-auto'>
             <Sidebar />
           </div>

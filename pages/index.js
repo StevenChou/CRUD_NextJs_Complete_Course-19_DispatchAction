@@ -24,10 +24,10 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <main className='py-5'>
-        <h1 className='text-xl md:text-5xl text-center font-bold py-10'>
+      <main className='pb-5'>
+        {/* <h1 className='text-xl md:text-5xl text-center font-bold py-10'>
           Employee Management
-        </h1>
+        </h1> */}
 
         <div className='container mx-auto flex justify-between py-5 border-b'>
           <div className='left flex gap-3'>
@@ -47,7 +47,7 @@ export default function Home() {
         {visible ? <Form /> : <></>}
 
         {/* table */}
-        <div className='container mx-auto'>
+        <div className='container mx-auto overflow-x-auto'>
           <Table />
         </div>
       </main>
