@@ -61,7 +61,7 @@ const Sidebar = () => {
                   <AiFillGooglePlusSquare />
                 </p>
                 <span className='capitalize text-xl hidden xl:block'>
-                  menu 1
+                  Card Samples
                 </span>
               </div>
             </Link>
