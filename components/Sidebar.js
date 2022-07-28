@@ -48,7 +48,7 @@ const Sidebar = () => {
                   <AiFillHome />
                 </p>
                 <span className='capitalize text-xl hidden xl:block'>
-                  CRUD 範例
+                  CRUD Samples
                 </span>
               </div>
             </Link>
@@ -74,7 +74,7 @@ const Sidebar = () => {
                   <AiFillMail />
                 </p>
                 <span className='capitalize text-xl hidden xl:block'>
-                  menu 2
+                  Dialog(Modal) Samples
                 </span>
               </div>
             </Link>
@@ -87,7 +87,7 @@ const Sidebar = () => {
                   <AiFillPushpin />
                 </p>
                 <span className='capitalize text-xl hidden xl:block'>
-                  menu 3
+                  Tabs Samples(to be continued)
                 </span>
               </div>
             </Link>
