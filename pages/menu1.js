@@ -1,58 +1,14 @@
-import React, { useState } from 'react'
-import { Menu } from '@headlessui/react'
+import { Fragment, useEffect, useRef, useState } from 'react'
+import { Menu, Transition } from '@headlessui/react'
+import { ChevronDownIcon } from '@heroicons/react/solid'
 
 import DropdownLink from './../components/DropdownLink'
 
 export default function Menu1() {
-  const [toggle, setToggle] = useState(false)
-
   const user = { isAdmin: true, name: 'Whalebro' }
 
   return (
     <>
-      <Menu as='div' className='relative inline-block'>
-        <Menu.Button className='text-blue-600'>{user.name}</Menu.Button>
-        <Menu.Items className='absolute right-0 w-56 origin-top-right bg-white  shadow-lg '>
-          <Menu.Item>
-            <DropdownLink className='dropdown-link' href='/profile'>
-              Profile
-            </DropdownLink>
-          </Menu.Item>
-          <Menu.Item>
-            <DropdownLink className='dropdown-link' href='/order-history'>
-              Order History
-            </DropdownLink>
-          </Menu.Item>
-          {user.isAdmin && (
-            <Menu.Item>
-              <DropdownLink className='dropdown-link' href='/admin/dashboard'>
-                Admin Dashboard
-              </DropdownLink>
-            </Menu.Item>
-          )}
-          <Menu.Item>
-            <a className='dropdown-link' href='#' onClick={() => {}}>
-              Logout
-            </a>
-          </Menu.Item>
-        </Menu.Items>
-      </Menu>
-
-      <div>
-        <a
-          href='#'
-          className='block p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700'
-        >
-          <h5 className='mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>
-            Noteworthy technology acquisitions 2022
-          </h5>
-          <p className='font-normal text-gray-700 dark:text-gray-400'>
-            Here are the biggest enterprise technology acquisitions of 2021 so
-            far, in reverse chronological order.
-          </p>
-        </a>
-      </div>
-
       <div className='max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700'>
         <a href='#'>
           <img
@@ -95,15 +51,8 @@ export default function Menu1() {
 
       <div className='max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700'>
         <div className='flex justify-end px-4 pt-4'>
-          <div className=' relative'>
-            <button
-              id='dropdownButton'
-              data-dropdown-toggle='dropdown'
-              className='inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5'
-              type='button'
-              onClick={() => setToggle(!toggle)}
-            >
-              <span className='sr-only'>Open dropdown</span>
+          <Menu as='div' className='relative inline-block'>
+            <Menu.Button className='inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5'>
               <svg
                 className='w-6 h-6'
                 aria-hidden='true'
@@ -113,43 +62,35 @@ export default function Menu1() {
               >
                 <path d='M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z'></path>
               </svg>
-            </button>
-
-            <div
-              id='dropdown'
-              className={` absolute ${
-                toggle ? '' : 'hidden'
-              } z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700`}
-              style={{ top: '3rem', right: '-4.6rem' }}
-            >
-              <ul className='py-1' aria-labelledby='dropdownButton'>
-                <li>
-                  <a
-                    href='#'
-                    className='block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'
+            </Menu.Button>
+            <Menu.Items className='absolute left-0 w-56 origin-top-right bg-white  shadow-lg '>
+              <Menu.Item>
+                <DropdownLink className='dropdown-link' href='/profile'>
+                  <span className='text-red-600'>profile</span>
+                </DropdownLink>
+              </Menu.Item>
+              <Menu.Item>
+                <DropdownLink className='dropdown-link' href='/order-history'>
+                  <span className=''>Order History</span>
+                </DropdownLink>
+              </Menu.Item>
+              {user.isAdmin && (
+                <Menu.Item>
+                  <DropdownLink
+                    className='dropdown-link'
+                    href='/admin/dashboard'
                   >
-                    Edit
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href='#'
-                    className='block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'
-                  >
-                    Export Data
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href='#'
-                    className='block py-2 px-4 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'
-                  >
-                    Delete
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
+                    Admin Dashboard
+                  </DropdownLink>
+                </Menu.Item>
+              )}
+              <Menu.Item>
+                <a className='dropdown-link' href='#' onClick={() => {}}>
+                  Logout
+                </a>
+              </Menu.Item>
+            </Menu.Items>
+          </Menu>
         </div>
         <div className='flex flex-col items-center pb-10'>
           <img
