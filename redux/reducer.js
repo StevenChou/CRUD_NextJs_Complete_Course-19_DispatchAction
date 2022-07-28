@@ -9,9 +9,11 @@ export const ReducerSlice = createSlice({
   initialState,
   reducers: {
     toggleChangeAction: (state) => {
+      console.log('*** 啟動toggle reducer action:')
       state.client.toggleForm = !state.client.toggleForm
     },
     updateAction: (state, action) => {
+      console.log('*** 啟動update reducer action:', action)
       state.client.formId = action.payload
     },
   },
