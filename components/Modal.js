@@ -1,7 +1,14 @@
+import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
 
-export default function Modal({ show, onClose, children, title, actionBtn }) {
+export default function Modal({
+  show,
+  onClose,
+  children,
+  title,
+  actionBtn,
+  titleClass,
+}) {
   return (
     <Transition appear show={show} as={Fragment}>
       <Dialog as='div' className='relative z-10' onClose={onClose}>
@@ -29,10 +36,7 @@ export default function Modal({ show, onClose, children, title, actionBtn }) {
               leaveTo='opacity-0 scale-95'
             >
               <Dialog.Panel className='w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
-                <Dialog.Title
-                  as='div'
-                  className='flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600'
-                >
+                <Dialog.Title as='div' className={titleClass}>
                   <h3 className='text-xl font-semibold text-gray-900 dark:text-white'>
                     {title}
                   </h3>
@@ -70,4 +74,9 @@ export default function Modal({ show, onClose, children, title, actionBtn }) {
       </Dialog>
     </Transition>
   )
+}
+
+Modal.defaultProps = {
+  titleClass:
+    'flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600',
 }
