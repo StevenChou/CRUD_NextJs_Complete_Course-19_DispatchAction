@@ -3,6 +3,11 @@
 - [TanStack Query](https://tanstack.com/query/v4)
 - [prop-types](https://www.npmjs.com/package/prop-types)
 - [date-fns](https://www.npmjs.com/package/date-fns)
+- [react-toastify](https://www.npmjs.com/package/react-toastify)
+- [react-hook-form](https://react-hook-form.com/)
+- [axios](https://www.npmjs.com/package/axios)
+- [headless](https://headlessui.com/react/menu#installation)
+- [heroicons](https://heroicons.com/)
 
 ---
 

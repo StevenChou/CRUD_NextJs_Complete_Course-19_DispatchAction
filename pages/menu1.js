@@ -1,10 +1,43 @@
 import React, { useState } from 'react'
+import { Menu } from '@headlessui/react'
+
+import DropdownLink from './../components/DropdownLink'
 
 export default function Menu1() {
   const [toggle, setToggle] = useState(false)
 
+  const user = { isAdmin: true, name: 'Whalebro' }
+
   return (
     <>
+      <Menu as='div' className='relative inline-block'>
+        <Menu.Button className='text-blue-600'>{user.name}</Menu.Button>
+        <Menu.Items className='absolute right-0 w-56 origin-top-right bg-white  shadow-lg '>
+          <Menu.Item>
+            <DropdownLink className='dropdown-link' href='/profile'>
+              Profile
+            </DropdownLink>
+          </Menu.Item>
+          <Menu.Item>
+            <DropdownLink className='dropdown-link' href='/order-history'>
+              Order History
+            </DropdownLink>
+          </Menu.Item>
+          {user.isAdmin && (
+            <Menu.Item>
+              <DropdownLink className='dropdown-link' href='/admin/dashboard'>
+                Admin Dashboard
+              </DropdownLink>
+            </Menu.Item>
+          )}
+          <Menu.Item>
+            <a className='dropdown-link' href='#' onClick={() => {}}>
+              Logout
+            </a>
+          </Menu.Item>
+        </Menu.Items>
+      </Menu>
+
       <div>
         <a
           href='#'
@@ -61,58 +94,61 @@ export default function Menu1() {
       </div>
 
       <div className='max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700'>
-        <div className='flex justify-end px-4 pt-4 relative'>
-          <button
-            id='dropdownButton'
-            data-dropdown-toggle='dropdown'
-            className='inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5'
-            type='button'
-            onClick={() => setToggle(!toggle)}
-          >
-            <span className='sr-only'>Open dropdown</span>
-            <svg
-              className='w-6 h-6'
-              aria-hidden='true'
-              fill='currentColor'
-              viewBox='0 0 20 20'
-              xmlns='http://www.w3.org/2000/svg'
+        <div className='flex justify-end px-4 pt-4'>
+          <div className=' relative'>
+            <button
+              id='dropdownButton'
+              data-dropdown-toggle='dropdown'
+              className='inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5'
+              type='button'
+              onClick={() => setToggle(!toggle)}
             >
-              <path d='M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z'></path>
-            </svg>
-          </button>
+              <span className='sr-only'>Open dropdown</span>
+              <svg
+                className='w-6 h-6'
+                aria-hidden='true'
+                fill='currentColor'
+                viewBox='0 0 20 20'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <path d='M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z'></path>
+              </svg>
+            </button>
 
-          <div
-            id='dropdown'
-            className={` absolute top-0 right-0 ${
-              toggle ? '' : 'hidden'
-            } z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700`}
-          >
-            <ul className='py-1' aria-labelledby='dropdownButton'>
-              <li>
-                <a
-                  href='#'
-                  className='block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'
-                >
-                  Edit
-                </a>
-              </li>
-              <li>
-                <a
-                  href='#'
-                  className='block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'
-                >
-                  Export Data
-                </a>
-              </li>
-              <li>
-                <a
-                  href='#'
-                  className='block py-2 px-4 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'
-                >
-                  Delete
-                </a>
-              </li>
-            </ul>
+            <div
+              id='dropdown'
+              className={` absolute ${
+                toggle ? '' : 'hidden'
+              } z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700`}
+              style={{ top: '3rem', right: '-4.6rem' }}
+            >
+              <ul className='py-1' aria-labelledby='dropdownButton'>
+                <li>
+                  <a
+                    href='#'
+                    className='block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'
+                  >
+                    Edit
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href='#'
+                    className='block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'
+                  >
+                    Export Data
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href='#'
+                    className='block py-2 px-4 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'
+                  >
+                    Delete
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
         <div className='flex flex-col items-center pb-10'>
