@@ -66,7 +66,7 @@ export default function Modal({
                 {children}
 
                 {/* Modal footer */}
-                {actionBtn(onClose)}
+                {actionBtn && actionBtn(onClose)}
               </Dialog.Panel>
             </Transition.Child>
           </div>
