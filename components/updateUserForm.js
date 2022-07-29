@@ -32,6 +32,8 @@ export default function UpdateUserForm({ formId, formData, setFormData }) {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
+    console.log('*** update submit(formData):', formData)
+
     let userName = `${formData.firstname ?? firstname} ${
       formData.lastname ?? lastname
     }`
