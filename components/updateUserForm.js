@@ -1,12 +1,22 @@
-import { useQuery } from 'react-query'
+import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { BiBrush } from 'react-icons/bi'
 
-import { getUser } from '../lib/helper'
+import { getUser, getUsers, updateUser } from '../lib/helper'
 
 export default function UpdateUserForm({ formId, formData, setFormData }) {
+  const queryClient = useQueryClient()
   const { isLoading, isError, data, error } = useQuery(['users', formId], () =>
     getUser(formId)
   )
+  const UpdateMutation = useMutation((newData) => updateUser(formId, newData), {
+    onSuccess: async (data) => {
+      // solution 1. 因為 updateUser 只回傳一筆資料，下列寫法只會產生一筆，更新過的資料!!
+      // queryClient.setQueryData('users', (old) => [data])
+
+      // solution 2. 重新打一次 getUsers api，取得所有資料
+      queryClient.prefetchQuery('users', getUsers)
+    },
+  })
 
   if (isLoading) {
     return <div>Loading...!</div>
@@ -19,14 +29,16 @@ export default function UpdateUserForm({ formId, formData, setFormData }) {
   const { name, avatar, salary, date, email, status } = data
   const [firstname, lastname] = name ? name.split(' ') : formData
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
-    if (Object.keys(formData).length == 0) {
-      return console.log("Don't have Form Data")
-    }
+    let userName = `${formData.firstname ?? firstname} ${
+      formData.lastname ?? lastname
+    }`
 
-    console.log(formData)
+    let updated = Object.assign({}, data, formData, { name: userName })
+
+    await UpdateMutation.mutate(updated)
   }
 
   return (
