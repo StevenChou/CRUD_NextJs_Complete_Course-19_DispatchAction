@@ -4,8 +4,8 @@ import { BiPlus } from 'react-icons/bi'
 
 import { addUser, getUsers } from '../lib/helper'
 
-import Success from './success'
-import Bug from './bug'
+import Success from './Success'
+import Bug from './Bug'
 
 export default function AddUserForm({ formData, setFormData }) {
   const queryClient = useQueryClient()

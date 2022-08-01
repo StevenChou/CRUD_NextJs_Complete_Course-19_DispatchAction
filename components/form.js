@@ -1,8 +1,8 @@
 import { useReducer } from 'react'
 import { useSelector } from 'react-redux'
 
-import UpdateUserForm from './updateUserForm'
-import AddUserForm from './addUserForm'
+import UpdateUserForm from './UpdateUserForm'
+import AddUserForm from './AddUserForm'
 
 const formReducer = (state, event) => {
   return {

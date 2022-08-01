@@ -8,8 +8,8 @@ import { deleteUser, getUsers } from '../lib/helper'
 
 import { toggleChangeAction, deleteAction } from '../redux/reducer'
 
-import Table from '../components/table'
-import Form from '../components/form'
+import Table from '@/components/Table'
+import Form from '@/components/Form'
 
 export default function Home() {
   const queryclient = useQueryClient()
