@@ -19,16 +19,24 @@ import { ImCancelCircle } from 'react-icons/im'
 // import Discover from './Discover'
 import Footer from './Footer'
 
+const normalLink =
+  'flex items-center gap-3 hover:bg-primary p-3 justify-center xl:justify-start cursor-pointer font-semibold rounded'
+const activeLink =
+  'flex items-center gap-3 hover:bg-primary p-3 justify-center xl:justify-start cursor-pointer font-semibold text-[#F51997] rounded'
+const subNormalLink =
+  'flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700'
+const subActiveLink =
+  'flex items-center p-2 pl-11 w-full text-base font-normal text-[#F51997] rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700'
+
 const Sidebar = () => {
   const { pathname } = useRouter()
+  console.log('*** pathname:', pathname)
 
   const [showSidebar, setShowSidebar] = useState(true)
 
+  const [isOpen, setIsOpen] = useState(false)
+
   const userProfile = false
-  const normalLink =
-    'flex items-center gap-3 hover:bg-primary p-3 justify-center xl:justify-start cursor-pointer font-semibold rounded'
-  const activeLink =
-    'flex items-center gap-3 hover:bg-primary p-3 justify-center xl:justify-start cursor-pointer font-semibold text-[#F51997] rounded'
 
   return (
     <div>
@@ -94,16 +102,85 @@ const Sidebar = () => {
           </div>
 
           <div className='xl:border-b-2 border-gray-200 xl:pb-4'>
-            <Link href='/menu4'>
-              <div className={pathname === '/menu4' ? activeLink : normalLink}>
-                <p className='text-2xl'>
-                  <AiFillTag />
-                </p>
-                <span className='capitalize text-xl hidden xl:block'>
-                  menu 4
-                </span>
-              </div>
+            <Link href='/sidebar'>
+              <button
+                type='button'
+                onClick={() => setIsOpen((pre) => !pre)}
+                className='flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700'
+                aria-controls='dropdown-example'
+              >
+                <div
+                  className={pathname === '/sidebar' ? activeLink : normalLink}
+                >
+                  <p className='text-2xl'>
+                    <AiFillTag />
+                  </p>
+                  <span className='capitalize text-xl hidden xl:block'>
+                    Sidebar Samples
+                  </span>
+                  <svg
+                    sidebar-toggle-item=''
+                    className='w-6 h-6'
+                    fill='currentColor'
+                    viewBox='0 0 20 20'
+                    xmlns='http://www.w3.org/2000/svg'
+                  >
+                    <path
+                      fillRule='evenodd'
+                      d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z'
+                      clipRule='evenodd'
+                    ></path>
+                  </svg>
+                </div>
+              </button>
             </Link>
+            <ul
+              id='dropdown-example'
+              className={`${isOpen ? '' : 'hidden'} py-2 space-y-2`}
+            >
+              <li>
+                <Link href='/sidebar/sample1'>
+                  <a
+                    href='#'
+                    className={
+                      pathname === '/sidebar/sample1'
+                        ? subActiveLink
+                        : subNormalLink
+                    }
+                  >
+                    Multi-level dropdown
+                  </a>
+                </Link>
+              </li>
+              <li>
+                <Link href='/sidebar/sample2'>
+                  <a
+                    href='#'
+                    className={
+                      pathname === '/sidebar/sample2'
+                        ? subActiveLink
+                        : subNormalLink
+                    }
+                  >
+                    Content separator
+                  </a>
+                </Link>
+              </li>
+              <li>
+                <Link href='/sidebar/sample3'>
+                  <a
+                    href='#'
+                    className={
+                      pathname === '/sidebar/sample3'
+                        ? subActiveLink
+                        : subNormalLink
+                    }
+                  >
+                    CTA button
+                  </a>
+                </Link>
+              </li>
+            </ul>
           </div>
 
           {/* {!userProfile && (

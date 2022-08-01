@@ -10,7 +10,7 @@ const people = [
   { id: 5, name: 'Katelyn Rohan' },
 ]
 
-export default function Test() {
+export default function Tab01() {
   const [selected, setSelected] = useState([people[0]])
 
   const handleSubmit = (e) => {
