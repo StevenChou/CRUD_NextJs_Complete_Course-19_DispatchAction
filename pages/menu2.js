@@ -1,5 +1,5 @@
 import { useState, Fragment } from 'react'
-import { BiCoffee } from 'react-icons/bi'
+import { BiBadge, BiCoffee } from 'react-icons/bi'
 import { Dialog, Transition } from '@headlessui/react'
 
 import Modal from './../components/Modal'

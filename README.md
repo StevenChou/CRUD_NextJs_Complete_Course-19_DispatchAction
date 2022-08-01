@@ -8,6 +8,7 @@
 - [axios](https://www.npmjs.com/package/axios)
 - [headless](https://headlessui.com/react/menu#installation)
 - [heroicons](https://heroicons.com/)
+- [react-select](https://www.npmjs.com/package/react-select)
 
 ---
 

@@ -1,19 +1,38 @@
 import { useState } from 'react'
 import Head from 'next/head'
 import { useSelector, useDispatch } from 'react-redux'
-import { BiUserPlus } from 'react-icons/bi'
+import { useQueryClient } from 'react-query'
+import { BiUserPlus, BiX, BiCheck } from 'react-icons/bi'
 
-import { toggleChangeAction } from '../redux/reducer'
+import { deleteUser, getUsers } from '../lib/helper'
+
+import { toggleChangeAction, deleteAction } from '../redux/reducer'
 
 import Table from '../components/table'
 import Form from '../components/form'
 
 export default function Home() {
-  const visible = useSelector((state) => state.app.client.toggleForm)
+  const queryclient = useQueryClient()
+
   const dispatch = useDispatch()
+  const visible = useSelector((state) => state.app.client.toggleForm)
+  const deleteId = useSelector((state) => state.app.client.deleteId)
 
   const handler = () => {
     dispatch(toggleChangeAction())
+  }
+
+  const deletehandler = async () => {
+    if (deleteId) {
+      await deleteUser(deleteId)
+      await queryclient.prefetchQuery('users', getUsers)
+      await dispatch(deleteAction(null))
+    }
+  }
+
+  const canclehandler = async () => {
+    console.log('cancel')
+    await dispatch(deleteAction(null))
   }
 
   return (
@@ -33,7 +52,7 @@ export default function Home() {
           <div className='left flex gap-3'>
             <button
               onClick={handler}
-              className='flex bg-indigo-500 text-white px-4 py-2 border rounded-md hover:bg-gray-50 hover:border-indigo-500 hover:text-gray-800'
+              className='flex bg-indigo-500 text-white px-4 py-2 border rounded-md hover:bg-grary-50 hover:border-indigo-500 hover:text-gray-800'
             >
               Add Employee{' '}
               <span className='px-1'>
@@ -41,6 +60,7 @@ export default function Home() {
               </span>
             </button>
           </div>
+          {deleteId ? DeleteComponent({ deletehandler, canclehandler }) : <></>}
         </div>
 
         {/* collapsable form */}
@@ -52,5 +72,31 @@ export default function Home() {
         </div>
       </main>
     </section>
+  )
+}
+
+function DeleteComponent({ deletehandler, canclehandler }) {
+  return (
+    <div className='flex gap-5'>
+      <button>Are you sure?</button>
+      <button
+        onClick={deletehandler}
+        className='flex bg-red-500 text-white px-4 py-2 border rounded-md hover:bg-rose-500 hover:border-red-500 hover:text-gray-50'
+      >
+        Yes{' '}
+        <span className='px-1'>
+          <BiX color='rgb(255 255 255)' size={25} />
+        </span>
+      </button>
+      <button
+        onClick={canclehandler}
+        className='flex bg-green-500 text-white px-4 py-2 border rounded-md hover:bg-gree-500 hover:border-green-500 hover:text-gray-50'
+      >
+        No{' '}
+        <span className='px-1'>
+          <BiCheck color='rgb(255 255 255)' size={25} />
+        </span>
+      </button>
+    </div>
   )
 }
