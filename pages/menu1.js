@@ -2,6 +2,7 @@ import { Fragment, useEffect, useRef, useState } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
 
+import Layout from '@/components/main/Layout'
 import DropdownLink from './../components/DropdownLink'
 
 export default function Menu1() {
@@ -122,4 +123,8 @@ export default function Menu1() {
       </div>
     </>
   )
+}
+
+Menu1.getLayout = function getLayout(page) {
+  return <Layout>{page}</Layout>
 }

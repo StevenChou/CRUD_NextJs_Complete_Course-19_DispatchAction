@@ -30,7 +30,7 @@ const subNormalLink =
 const subActiveLink =
   'flex items-center p-2 pl-11 w-full text-base font-normal text-[#F51997] rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700'
 
-const Sidebar = () => {
+export default function Sidebar() {
   const { pathname } = useRouter()
   const dispatch = useDispatch()
 
@@ -258,5 +258,3 @@ const Sidebar = () => {
   //   </div>
   // )
 }
-
-export default Sidebar

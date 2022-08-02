@@ -1,6 +1,8 @@
 import React from 'react'
 
-export default function sample3() {
+import Layout from '@/components/main/Layout'
+
+export default function Sample3() {
   return (
     <aside className='w-64' aria-label='Sidebar'>
       <div className='overflow-y-auto py-4 px-3 bg-gray-50 rounded dark:bg-gray-800'>
@@ -194,4 +196,8 @@ export default function sample3() {
       </div>
     </aside>
   )
+}
+
+Sample3.getLayout = function getLayout(page) {
+  return <Layout>{page}</Layout>
 }

@@ -2,7 +2,8 @@ import { useState, Fragment } from 'react'
 import { BiBadge, BiCoffee } from 'react-icons/bi'
 import { Dialog, Transition } from '@headlessui/react'
 
-import Modal from './../components/Modal'
+import Layout from '@/components/main/Layout'
+import Modal from '@/components/Modal'
 
 export default function Menu2() {
   // For Default modal
@@ -79,7 +80,7 @@ export default function Menu2() {
           type='button'
           className='text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2'
         >
-          Yes, I'm sure
+          Yes, Im sure
         </button>
         <button
           type='button'
@@ -264,4 +265,8 @@ export default function Menu2() {
       </Modal>
     </>
   )
+}
+
+Menu2.getLayout = function getLayout(page) {
+  return <Layout>{page}</Layout>
 }

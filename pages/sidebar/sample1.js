@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 
+import Layout from '@/components/main/Layout'
 export default function Sample1() {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -224,4 +225,8 @@ export default function Sample1() {
       </div>
     </aside>
   )
+}
+
+Sample1.getLayout = function getLayout(page) {
+  return <Layout>{page}</Layout>
 }

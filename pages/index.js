@@ -8,6 +8,7 @@ import { deleteUser, getUsers } from '../lib/helper'
 
 import { toggleChangeAction, deleteAction } from '../redux/reducer'
 
+import Layout from '@/components/main/Layout'
 import Table from '@/components/Table'
 import Form from '@/components/Form'
 
@@ -99,4 +100,8 @@ function DeleteComponent({ deletehandler, canclehandler }) {
       </button>
     </div>
   )
+}
+
+Home.getLayout = function getLayout(page) {
+  return <Layout>{page}</Layout>
 }

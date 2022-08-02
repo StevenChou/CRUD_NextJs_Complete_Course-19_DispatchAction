@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Tab } from '@headlessui/react'
 
+import Layout from '@/components/main/Layout'
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
@@ -132,4 +134,8 @@ export default function Menu3() {
       </Tab.Group>
     </div>
   )
+}
+
+Menu3.getLayout = function getLayout(page) {
+  return <Layout>{page}</Layout>
 }
