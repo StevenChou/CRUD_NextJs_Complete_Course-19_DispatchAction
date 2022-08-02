@@ -1,3 +1,10 @@
+## 2022-08-22
+
+- [ ] 抽出 layout
+- [ ] Setting up Tailwind with Styled Components
+
+---
+
 ##npm
 
 - [TanStack Query](https://tanstack.com/query/v4)
