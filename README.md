@@ -1,6 +1,7 @@
 ## 2022-08-22
 
 - [x] 抽出 layout
+- [x] 升版 Axios
 - [ ] React Query pagination
 - [ ] Setting up Tailwind with Styled Components
 
