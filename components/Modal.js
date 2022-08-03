@@ -8,6 +8,7 @@ export default function Modal({
   title,
   actionBtn,
   titleClass,
+  windowsSize,
 }) {
   return (
     <Transition appear show={show} as={Fragment}>
@@ -35,7 +36,9 @@ export default function Modal({
               leaveFrom='opacity-100 scale-100'
               leaveTo='opacity-0 scale-95'
             >
-              <Dialog.Panel className='w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
+              <Dialog.Panel
+                className={`w-full ${windowsSize} transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all`}
+              >
                 <Dialog.Title as='div' className={titleClass}>
                   <h3 className='text-xl font-semibold text-gray-900 dark:text-white'>
                     {title}
@@ -79,4 +82,5 @@ export default function Modal({
 Modal.defaultProps = {
   titleClass:
     'flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600',
+  windowsSize: 'max-w-md',
 }

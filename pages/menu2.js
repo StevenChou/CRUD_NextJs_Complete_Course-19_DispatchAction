@@ -260,6 +260,7 @@ export default function Menu2() {
         onClose={closeModalForm}
         title='Sign in to our platform'
         titleClass='flex justify-between text-lg font-medium leading-6 text-gray-900'
+        windowsSize='max-w-2xl'
       >
         {modalFormContent()}
       </Modal>

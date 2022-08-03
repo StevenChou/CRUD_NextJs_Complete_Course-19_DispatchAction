@@ -1,6 +1,7 @@
 ## 2022-08-22
 
-- [ ] 抽出 layout
+- [x] 抽出 layout
+- [ ] React Query pagination
 - [ ] Setting up Tailwind with Styled Components
 
 ---
