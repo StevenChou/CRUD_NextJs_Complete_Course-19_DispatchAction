@@ -31,3 +31,7 @@ customFetchOne.interceptors.request.use((config) => {
 // }
 
 // export default customFetch
+
+export const axiosTwo = axios.create({
+  baseURL: 'https://reqres.in/api',
+})

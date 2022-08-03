@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useQuery } from 'react-query'
 import { BiEdit, BiTrashAlt } from 'react-icons/bi'
 
-import { getUsers } from '../lib/helper'
+import { getUsers } from '@/lib/helper-crud'
 
 import {
   toggleChangeAction,

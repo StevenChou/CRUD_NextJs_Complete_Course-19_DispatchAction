@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { BiBrush } from 'react-icons/bi'
 
-import { getUser, getUsers, updateUser } from '../lib/helper'
+import { getUser, getUsers, updateUser } from '@/lib/helper-crud'
 
 export default function UpdateUserForm({ formId, formData, setFormData }) {
   const queryClient = useQueryClient()

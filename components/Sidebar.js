@@ -37,6 +37,7 @@ export default function Sidebar() {
   const { isSidebarOpen } = useSelector((store) => store.sys)
 
   const [isOpen, setIsOpen] = useState(false)
+  const [isCrudOpen, setIsCrudOpen] = useState(false)
 
   const userProfile = false
 
@@ -53,16 +54,55 @@ export default function Sidebar() {
       {isSidebarOpen && (
         <div className='xl:w-260 w-20 flex flex-col justify-start mb-10 border-r-2 border-gray-100 xl:border-0 p-3 '>
           <div className='xl:border-b-2 border-gray-200 xl:pb-4'>
-            <Link href='/'>
-              <div className={pathname === '/' ? activeLink : normalLink}>
-                <p className='text-2xl'>
-                  <AiFillHome />
-                </p>
-                <span className='capitalize text-xl hidden xl:block'>
-                  CRUD Samples
-                </span>
-              </div>
+            <Link href='/crud'>
+              <button
+                type='button'
+                onClick={() => setIsCrudOpen((pre) => !pre)}
+                className='flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700'
+                aria-controls='dropdown-example'
+              >
+                <div className={pathname === '/crud' ? activeLink : normalLink}>
+                  <p className='text-2xl'>
+                    <AiFillHome />
+                  </p>
+                  <span className='capitalize text-xl hidden xl:block'>
+                    CRUD Samples
+                  </span>
+                  <svg
+                    sidebar-toggle-item=''
+                    className='w-6 h-6'
+                    fill='currentColor'
+                    viewBox='0 0 20 20'
+                    xmlns='http://www.w3.org/2000/svg'
+                  >
+                    <path
+                      fillRule='evenodd'
+                      d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z'
+                      clipRule='evenodd'
+                    ></path>
+                  </svg>
+                </div>
+              </button>
             </Link>
+            <ul
+              id='dropdown-example'
+              className={`${isCrudOpen ? '' : 'hidden'} py-2 space-y-2`}
+            >
+              <li>
+                <Link href='/crud/pagination'>
+                  <a
+                    href='#'
+                    className={
+                      pathname === '/crud/pagination'
+                        ? subActiveLink
+                        : subNormalLink
+                    }
+                  >
+                    Pagination
+                  </a>
+                </Link>
+              </li>
+            </ul>
           </div>
 
           <div className='xl:border-b-2 border-gray-200 xl:pb-4'>

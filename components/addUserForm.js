@@ -2,7 +2,7 @@ import { useReducer } from 'react'
 import { useQueryClient, useMutation } from 'react-query'
 import { BiPlus } from 'react-icons/bi'
 
-import { addUser, getUsers } from '../lib/helper'
+import { addUser, getUsers } from '@/lib/helper-crud'
 
 import Success from './Success'
 import Bug from './Bug'
