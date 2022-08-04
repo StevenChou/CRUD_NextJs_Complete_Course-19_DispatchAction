@@ -118,6 +118,21 @@ export default function Sidebar() {
                   </a>
                 </Link>
               </li>
+
+              <li>
+                <Link href='/crud/complex'>
+                  <a
+                    href='#'
+                    className={
+                      pathname === '/crud/complex'
+                        ? subActiveLink
+                        : subNormalLink
+                    }
+                  >
+                    Shopping Cart
+                  </a>
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -287,7 +302,7 @@ export default function Sidebar() {
                         : subNormalLink
                     }
                   >
-                    Level 1
+                    basic
                   </a>
                 </Link>
               </li>
@@ -301,7 +316,7 @@ export default function Sidebar() {
                         : subNormalLink
                     }
                   >
-                    Level 2
+                    Multi-Step Form
                   </a>
                 </Link>
               </li>
@@ -315,7 +330,21 @@ export default function Sidebar() {
                         : subNormalLink
                     }
                   >
-                    Level 3
+                    Dynamic Form Fields
+                  </a>
+                </Link>
+              </li>
+              <li>
+                <Link href='/form/sample4'>
+                  <a
+                    href='#'
+                    className={
+                      pathname === '/form/sample4'
+                        ? subActiveLink
+                        : subNormalLink
+                    }
+                  >
+                    Initial Form Value
                   </a>
                 </Link>
               </li>
