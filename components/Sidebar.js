@@ -38,6 +38,7 @@ export default function Sidebar() {
 
   const [isOpen, setIsOpen] = useState(false)
   const [isCrudOpen, setIsCrudOpen] = useState(false)
+  const [isFormOpen, setIsFormOpen] = useState(false)
 
   const userProfile = false
 
@@ -99,6 +100,21 @@ export default function Sidebar() {
                     }
                   >
                     Pagination
+                  </a>
+                </Link>
+              </li>
+
+              <li>
+                <Link href='/crud/complex'>
+                  <a
+                    href='#'
+                    className={
+                      pathname === '/crud/complex'
+                        ? subActiveLink
+                        : subNormalLink
+                    }
+                  >
+                    Complex Type
                   </a>
                 </Link>
               </li>
@@ -220,6 +236,86 @@ export default function Sidebar() {
                     }
                   >
                     CTA button
+                  </a>
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          <div className='xl:border-b-2 border-gray-200 xl:pb-4'>
+            <Link href='/form'>
+              <button
+                type='button'
+                onClick={() => setIsFormOpen((pre) => !pre)}
+                className='flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700'
+                aria-controls='dropdown-example'
+              >
+                <div className={pathname === '/form' ? activeLink : normalLink}>
+                  <p className='text-2xl'>
+                    <AiFillTag />
+                  </p>
+                  <span className='capitalize text-xl hidden xl:block'>
+                    Form Samples
+                  </span>
+                  <svg
+                    sidebar-toggle-item=''
+                    className='w-6 h-6'
+                    fill='currentColor'
+                    viewBox='0 0 20 20'
+                    xmlns='http://www.w3.org/2000/svg'
+                  >
+                    <path
+                      fillRule='evenodd'
+                      d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z'
+                      clipRule='evenodd'
+                    ></path>
+                  </svg>
+                </div>
+              </button>
+            </Link>
+            <ul
+              id='dropdown-example'
+              className={`${isFormOpen ? '' : 'hidden'} py-2 space-y-2`}
+            >
+              <li>
+                <Link href='/form/sample1'>
+                  <a
+                    href='#'
+                    className={
+                      pathname === '/form/sample1'
+                        ? subActiveLink
+                        : subNormalLink
+                    }
+                  >
+                    Level 1
+                  </a>
+                </Link>
+              </li>
+              <li>
+                <Link href='/form/sample2'>
+                  <a
+                    href='#'
+                    className={
+                      pathname === '/form/sample2'
+                        ? subActiveLink
+                        : subNormalLink
+                    }
+                  >
+                    Level 2
+                  </a>
+                </Link>
+              </li>
+              <li>
+                <Link href='/form/sample3'>
+                  <a
+                    href='#'
+                    className={
+                      pathname === '/form/sample3'
+                        ? subActiveLink
+                        : subNormalLink
+                    }
+                  >
+                    Level 3
                   </a>
                 </Link>
               </li>
