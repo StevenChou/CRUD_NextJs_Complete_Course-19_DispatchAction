@@ -23,9 +23,9 @@ const TailwindButton = tw.button`
   flex h-10 mt-7 bg-indigo-500 text-white px-4 py-2 border rounded-md hover:bg-gray-50 hover:border-indigo-500 hover:text-gray-800
 `
 
-const ConditionalButton = styled.button(({ isRed }) => [
-  isRed
-    ? tw`bg-red-300 hover:bg-red-700`
+const ConditionalButton = styled.button(({ isRose }) => [
+  isRose
+    ? `background:rgb(253 164 175);`
     : tw`bg-indigo-500 hover:border-indigo-700`,
   tw`
     flex h-10 mt-7
@@ -154,7 +154,7 @@ export default function Sample1() {
         >
           Set All Values
         </TailwindButton>
-        <ConditionalButton isRed>Submit</ConditionalButton>
+        <ConditionalButton isRose>Submit</ConditionalButton>
       </form>
     </div>
   )
