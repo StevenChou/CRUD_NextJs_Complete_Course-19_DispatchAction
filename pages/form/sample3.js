@@ -48,6 +48,62 @@ export default function Sample3() {
     remove(index)
   }
 
+  const cusInputs = (key, index) => {
+    return (
+      <div className='flex gap-2' key={key}>
+        <div className='flex flex-col w-44'>
+          <input
+            {...register(`test.${index}.firstName`, {
+              required: { value: true, message: '空值' },
+            })}
+            className={
+              !errors?.test?.[index]?.firstName ? normalInput : errorInput
+            }
+          />
+          {errors?.test?.[index]?.firstName && (
+            <p className='mt-2 text-sm text-red-600 dark:text-red-500'>
+              <span className='font-medium'>
+                {errors?.test?.[index].firstName.message}
+              </span>
+            </p>
+          )}
+        </div>
+
+        <div className='flex flex-col w-44'>
+          <input
+            {...register(`test.${index}.lastName`, {
+              required: { value: true, message: '空值' },
+            })}
+            className={
+              !errors?.test?.[index]?.lastName ? normalInput : errorInput
+            }
+          />
+          {errors?.test?.[index]?.lastName && (
+            <p className='mt-2 text-sm text-red-600 dark:text-red-500'>
+              <span className='font-medium'>
+                {errors?.test?.[index].lastName.message}
+              </span>
+            </p>
+          )}
+        </div>
+
+        <button
+          disabled={fields.length === 1}
+          onClick={() => handleRemoveFields(index)}
+          className='flex h-10 bg-indigo-500 text-white px-4 py-2 border rounded-md hover:bg-grary-50 hover:border-indigo-500 hover:text-gray-800'
+        >
+          <IoIosCloseCircleOutline />
+        </button>
+        <button
+          onClick={handleAddFields}
+          className='flex h-10 bg-indigo-500 text-white px-4 py-2 border rounded-md hover:bg-grary-50 hover:border-indigo-500 hover:text-gray-800'
+        >
+          <IoIosAddCircleOutline />
+        </button>
+      </div>
+    )
+  }
+
   return (
     <div className='flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0'>
       <h1>Add New Member</h1>
@@ -55,59 +111,7 @@ export default function Sample3() {
         onSubmit={handleSubmit(onSubmit)}
         className='space-y-4 md:space-y-6'
       >
-        {fields.map((field, index) => (
-          <div className='flex gap-2' key={field.id}>
-            <div className='flex flex-col w-44'>
-              <input
-                {...register(`test.${index}.firstName`, {
-                  required: { value: true, message: '空值' },
-                })}
-                className={
-                  !errors?.test?.[index]?.firstName ? normalInput : errorInput
-                }
-              />
-              {errors?.test?.[index]?.firstName && (
-                <p className='mt-2 text-sm text-red-600 dark:text-red-500'>
-                  <span className='font-medium'>
-                    {errors?.test?.[index].firstName.message}
-                  </span>
-                </p>
-              )}
-            </div>
-
-            <div className='flex flex-col w-44'>
-              <input
-                {...register(`test.${index}.lastName`, {
-                  required: { value: true, message: '空值' },
-                })}
-                className={
-                  !errors?.test?.[index]?.lastName ? normalInput : errorInput
-                }
-              />
-              {errors?.test?.[index]?.lastName && (
-                <p className='mt-2 text-sm text-red-600 dark:text-red-500'>
-                  <span className='font-medium'>
-                    {errors?.test?.[index].lastName.message}
-                  </span>
-                </p>
-              )}
-            </div>
-
-            <button
-              disabled={fields.length === 1}
-              onClick={() => handleRemoveFields(index)}
-              className='flex h-10 bg-indigo-500 text-white px-4 py-2 border rounded-md hover:bg-grary-50 hover:border-indigo-500 hover:text-gray-800'
-            >
-              <IoIosCloseCircleOutline />
-            </button>
-            <button
-              onClick={handleAddFields}
-              className='flex h-10 bg-indigo-500 text-white px-4 py-2 border rounded-md hover:bg-grary-50 hover:border-indigo-500 hover:text-gray-800'
-            >
-              <IoIosAddCircleOutline />
-            </button>
-          </div>
-        ))}
+        {fields.map((field, index) => cusInputs(field.id, index))}
         <button
           className='bg-indigo-500 text-white px-4 py-2 border rounded-md hover:bg-grary-50 hover:border-indigo-500 hover:text-gray-800'
           variant='contained'
