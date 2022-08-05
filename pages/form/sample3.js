@@ -60,7 +60,7 @@ export default function Sample3() {
             <div className='flex flex-col w-44'>
               <input
                 {...register(`test.${index}.firstName`, {
-                  required: true,
+                  required: { value: true, message: '空值' },
                 })}
                 className={
                   !errors?.test?.[index]?.firstName ? normalInput : errorInput
@@ -68,8 +68,9 @@ export default function Sample3() {
               />
               {errors?.test?.[index]?.firstName && (
                 <p className='mt-2 text-sm text-red-600 dark:text-red-500'>
-                  <span className='font-medium'>Oh, snapp!</span> Error Type: [
-                  {errors?.test?.[index].firstName.type} ]
+                  <span className='font-medium'>
+                    {errors?.test?.[index].firstName.message}
+                  </span>
                 </p>
               )}
             </div>
@@ -77,7 +78,7 @@ export default function Sample3() {
             <div className='flex flex-col w-44'>
               <input
                 {...register(`test.${index}.lastName`, {
-                  required: true,
+                  required: { value: true, message: '空值' },
                 })}
                 className={
                   !errors?.test?.[index]?.lastName ? normalInput : errorInput
@@ -85,8 +86,9 @@ export default function Sample3() {
               />
               {errors?.test?.[index]?.lastName && (
                 <p className='mt-2 text-sm text-red-600 dark:text-red-500'>
-                  <span className='font-medium'>Oh, snapp!</span> Error Type: [{' '}
-                  {errors?.test?.[index].lastName.type} ]
+                  <span className='font-medium'>
+                    {errors?.test?.[index].lastName.message}
+                  </span>
                 </p>
               )}
             </div>
