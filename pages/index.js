@@ -67,6 +67,7 @@ export default function Home() {
                   電子郵件
                 </label>
                 <input
+                  id='email'
                   defaultValue='whalebro@gmail.com'
                   {...register('email', {
                     required: true,
@@ -92,6 +93,7 @@ export default function Home() {
                   密碼
                 </label>
                 <input
+                  id='password'
                   type='password'
                   {...register('password', {
                     required: true,

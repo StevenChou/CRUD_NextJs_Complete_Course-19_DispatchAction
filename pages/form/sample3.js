@@ -52,6 +52,12 @@ export default function Sample3() {
     return (
       <div className='flex gap-2' key={key}>
         <div className='flex flex-col w-44'>
+          <label
+            htmlFor='firstName'
+            className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
+          >
+            Frist Name
+          </label>
           <input
             {...register(`test.${index}.firstName`, {
               required: { value: true, message: '空值' },
@@ -70,6 +76,12 @@ export default function Sample3() {
         </div>
 
         <div className='flex flex-col w-44'>
+          <label
+            htmlFor='lastName'
+            className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
+          >
+            Last Name
+          </label>
           <input
             {...register(`test.${index}.lastName`, {
               required: { value: true, message: '空值' },
@@ -90,13 +102,13 @@ export default function Sample3() {
         <button
           disabled={fields.length === 1}
           onClick={() => handleRemoveFields(index)}
-          className='flex h-10 bg-indigo-500 text-white px-4 py-2 border rounded-md hover:bg-grary-50 hover:border-indigo-500 hover:text-gray-800'
+          className='flex h-10 mt-7 bg-indigo-500 text-white px-4 py-2 border rounded-md hover:bg-grary-50 hover:border-indigo-500 hover:text-gray-800'
         >
           <IoIosCloseCircleOutline />
         </button>
         <button
           onClick={handleAddFields}
-          className='flex h-10 bg-indigo-500 text-white px-4 py-2 border rounded-md hover:bg-grary-50 hover:border-indigo-500 hover:text-gray-800'
+          className='flex h-10 mt-7 bg-indigo-500 text-white px-4 py-2 border rounded-md hover:bg-grary-50 hover:border-indigo-500 hover:text-gray-800'
         >
           <IoIosAddCircleOutline />
         </button>
