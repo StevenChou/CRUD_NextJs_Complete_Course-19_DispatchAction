@@ -302,7 +302,7 @@ export default function Sidebar() {
                         : subNormalLink
                     }
                   >
-                    basic
+                    Set input/select value
                   </a>
                 </Link>
               </li>
