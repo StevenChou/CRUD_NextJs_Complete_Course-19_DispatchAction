@@ -1,4 +1,6 @@
 import { useForm, useFieldArray } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 import { v4 as uuidv4 } from 'uuid'
 import { IoIosAddCircleOutline, IoIosCloseCircleOutline } from 'react-icons/io'
 
@@ -10,6 +12,14 @@ const normalInput =
 const errorInput =
   'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500'
 
+const newMemberSchema = yup.object().shape({
+  test: yup.array().of(
+    yup.object().shape({
+      firstName: yup.string().required('First Name is required'),
+      lastName: yup.string().required('Last Name is required'),
+    })
+  ),
+})
 export default function Sample3() {
   const {
     register,
@@ -22,7 +32,7 @@ export default function Sample3() {
     defaultValues: {
       test: [{ id: uuidv4(), firstName: 'Bill', lastName: 'Luo' }],
     },
-    resolver: undefined,
+    resolver: yupResolver(newMemberSchema),
     context: undefined,
     criteriaMode: 'firstError',
     shouldFocusError: true,
@@ -59,9 +69,7 @@ export default function Sample3() {
             Frist Name
           </label>
           <input
-            {...register(`test.${index}.firstName`, {
-              required: { value: true, message: '空值' },
-            })}
+            {...register(`test.${index}.firstName`)}
             className={
               !errors?.test?.[index]?.firstName ? normalInput : errorInput
             }
@@ -83,9 +91,7 @@ export default function Sample3() {
             Last Name
           </label>
           <input
-            {...register(`test.${index}.lastName`, {
-              required: { value: true, message: '空值' },
-            })}
+            {...register(`test.${index}.lastName`)}
             className={
               !errors?.test?.[index]?.lastName ? normalInput : errorInput
             }
