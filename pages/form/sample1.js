@@ -1,11 +1,14 @@
-import { useForm } from 'react-hook-form'
+import { useEffect } from 'react'
+import { useForm, Controller } from 'react-hook-form'
+import Select from 'react-select'
 import tw, { styled } from 'twin.macro'
 
 import Layout from '@/components/main/Layout'
+import { Input } from '@/components/form/components'
 
-const TailwindInput = tw.input`
-  bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500
-`
+// const TailwindInput = tw.input`
+//   bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500
+// `
 
 const TailwindCheckbox = tw.input`
   w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600
@@ -34,8 +37,20 @@ const ConditionalButton = styled.button(({ isRose }) => [
   `,
 ])
 
+const options = [
+  { value: 'chocolate', label: 'Chocolate' },
+  { value: 'strawberry', label: 'Strawberry' },
+  { value: 'vanilla', label: 'Vanilla' },
+]
+
 export default function Sample1() {
-  const { register, handleSubmit, setValue } = useForm()
+  const { register, handleSubmit, setValue, control, reset, watch } = useForm()
+
+  const watchReactSelect = watch('reactSelect')
+
+  useEffect(() => {
+    console.log('*** react select value:', watchReactSelect)
+  }, [watchReactSelect])
 
   const onSubmit = (data) => {
     alert(JSON.stringify(data))
@@ -48,27 +63,47 @@ export default function Sample1() {
         className='space-y-4 md:space-y-6'
       >
         <div>
-          <label
+          {/* <label
             htmlFor='firstName'
             className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
           >
             First Name
           </label>
-          <TailwindInput placeholder='bill' {...register('firstName')} />
+          <TailwindInput
+            placeholder='bill'
+            {...register('firstName', {
+              onChange: (e) => console.log(e.target.value),
+            })}
+          /> */}
+          <Input
+            label='First Name'
+            name='firstName'
+            placeholder='bill'
+            onChange={(e) => console.log(e.target.value)}
+            register={register}
+            required
+          />
         </div>
 
         <div>
-          <label
+          {/* <label
             htmlFor='lastName'
             className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
           >
             Last Name
           </label>
-          <TailwindInput placeholder='luo' {...register('lastName')} />
+          <TailwindInput placeholder='luo' {...register('lastName')} /> */}
+          <Input
+            label='Last Name'
+            name='lastName'
+            placeholder='luo'
+            register={register}
+            required
+          />
         </div>
 
         <div>
-          <label
+          {/* <label
             htmlFor='email'
             className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
           >
@@ -78,6 +113,13 @@ export default function Sample1() {
             placeholder='bluebill1049@hotmail.com'
             type='email'
             {...register('email')}
+          /> */}
+          <Input
+            type='email'
+            label='Email'
+            name='email'
+            placeholder='bluebill1049@hotmail.com'
+            register={register}
           />
         </div>
 
@@ -105,6 +147,21 @@ export default function Sample1() {
             <option value='0'>0 - 1</option>
             <option value='1'>1 - 100</option>
           </TailwindSelect>
+        </div>
+
+        <div>
+          <label className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>
+            Wrapper component(React Select)
+          </label>
+
+          <Controller
+            name='reactSelect'
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <Select isClearable options={options} {...field} />
+            )}
+          />
         </div>
 
         <div>
@@ -147,9 +204,13 @@ export default function Sample1() {
           type='button'
           onClick={() => {
             setValue('firstName', 'Set value by action')
+            // setValue('lastName', 'Chou')
             setValue('ageGroup', '1')
             setValue('isDeveloper', true)
             setValue('sex', 'male')
+            setValue('reactSelect', { value: 'vanilla', label: 'Vanilla' })
+
+            // reset({ ReactSelect: { value: 'vanilla', label: 'Vanilla' } })
           }}
         >
           Set All Values
