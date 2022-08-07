@@ -1,5 +1,7 @@
 import { useEffect } from 'react'
 import { useForm, Controller } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 import ReactSelect from 'react-select'
 
 import Layout from '@/components/main/Layout'
@@ -18,11 +20,40 @@ const options = [
   { value: 'vanilla', label: 'Vanilla' },
 ]
 
+const SampleSchema = yup.object().shape({
+  firstName: yup
+    .string()
+    .required('此欄位必填')
+    .min(3, '最少 3 個字')
+    .max(10, '最多 10 個字'),
+  lastName: yup.string().required('此欄位必填'),
+  email: yup.string().email('電子郵件格式不符'),
+})
+
 export default function Sample1() {
-  const { register, handleSubmit, setValue, control, reset, watch } = useForm()
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    control,
+    reset,
+    watch,
+    formState: { errors },
+  } = useForm({
+    mode: 'onTouched',
+    reValidateMode: 'onChange',
+    resolver: yupResolver(SampleSchema),
+    context: undefined,
+    criteriaMode: 'firstError',
+    shouldFocusError: true,
+    shouldUnregister: false,
+    shouldUseNativeValidation: false,
+    delayError: undefined,
+  })
 
   const watchReactSelect = watch('reactSelect')
 
+  // onChange 的替代
   useEffect(() => {
     console.log('*** react select value:', watchReactSelect)
   }, [watchReactSelect])
@@ -42,8 +73,8 @@ export default function Sample1() {
             label='First Name'
             name='firstName'
             placeholder='bill'
-            onChange={(e) => console.log(e.target.value)}
             register={register}
+            errors={errors}
             required
           />
         </div>
@@ -54,6 +85,7 @@ export default function Sample1() {
             name='lastName'
             placeholder='luo'
             register={register}
+            errors={errors}
             required
           />
         </div>
@@ -64,6 +96,7 @@ export default function Sample1() {
             label='Email'
             name='email'
             placeholder='bluebill1049@hotmail.com'
+            errors={errors}
             register={register}
           />
         </div>

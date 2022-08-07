@@ -2,9 +2,19 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import tw, { styled } from 'twin.macro'
 
+const normalInput =
+  'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+
+const errorInput =
+  'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500'
+
 const TailwindInput = tw.input`
   bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500
 `
+
+const TailwindInputAdv = styled.input(({ isError }) => [
+  isError ? tw`${errorInput}` : tw`${normalInput}`,
+])
 
 const TailwindCheckbox = tw.input`
   w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600
@@ -59,6 +69,7 @@ export const Input = ({
   name,
   label,
   register,
+  errors,
   required,
   onchange,
   ...rest
@@ -70,7 +81,17 @@ export const Input = ({
     >
       {label}
     </label>
-    <TailwindInput {...register(name, { required, onchange })} {...rest} />
+    {/* <TailwindInput {...register(name, { required, onchange })} {...rest} /> */}
+    <TailwindInputAdv
+      {...register(name, { required, onchange })}
+      {...rest}
+      isError={errors && errors[name]}
+    />
+    {errors && errors[name] && (
+      <p className='mt-1 text-sm text-red-600 dark:text-red-500'>
+        <span className='font-medium'>{errors[name].message}</span>
+      </p>
+    )}
   </>
 )
 
