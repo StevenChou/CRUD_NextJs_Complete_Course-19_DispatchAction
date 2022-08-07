@@ -334,20 +334,6 @@ export default function Sidebar() {
                   </a>
                 </Link>
               </li>
-              <li>
-                <Link href='/form/sample4'>
-                  <a
-                    href='#'
-                    className={
-                      pathname === '/form/sample4'
-                        ? subActiveLink
-                        : subNormalLink
-                    }
-                  >
-                    Initial Form Value
-                  </a>
-                </Link>
-              </li>
             </ul>
           </div>
 
