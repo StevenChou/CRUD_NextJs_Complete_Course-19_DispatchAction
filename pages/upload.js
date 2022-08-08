@@ -21,6 +21,7 @@ export default function Upload() {
   const [videoAsset, setVideoAsset] = useState()
   const [progress, setProgress] = useState(0)
   const [wrongFileType, setWrongFileType] = useState(false)
+  const [wrongFileSize, setWrongFileSize] = useState(false)
 
   // const userProfile = useAuthStore((state) => state.userProfile)
   const router = useRouter()
@@ -34,10 +35,20 @@ export default function Upload() {
     try {
       const selectedFile = e.target.files[0]
       const fileTypes = ['video/mp4', 'video/webm', 'video/ogg']
+      // 30MB
+      const fileSize = Math.round(selectedFile.size / 1024 / 1024)
+      const limitSize = 7
+
+      if (fileSize > limitSize) {
+        setWrongFileSize(true)
+
+        return
+      }
 
       // uploading asset to google
       if (fileTypes.includes(selectedFile.type)) {
         setWrongFileType(false)
+        setWrongFileSize(false)
         setLoading(true)
 
         const videoData = new FormData()
@@ -56,16 +67,6 @@ export default function Upload() {
 
         setVideoAsset(data)
         setLoading(false)
-
-        // client.assets
-        //   .upload('file', selectedFile, {
-        //     contentType: selectedFile.type,
-        //     filename: selectedFile.name,
-        //   })
-        //   .then((data) => {
-        //     setVideoAsset(data)
-        //     setLoading(false)
-        //   })
       } else {
         setLoading(false)
         setWrongFileType(true)
@@ -190,6 +191,11 @@ export default function Upload() {
         {wrongFileType && (
           <p className='text-center text-xl text-red-400 font-semibold mt-4 w-[260px]'>
             Please select an video file (mp4 or webm or ogg)
+          </p>
+        )}
+        {wrongFileSize && (
+          <p className='text-center text-xl text-red-400 font-semibold mt-4 w-[260px]'>
+            Less than 30 MB
           </p>
         )}
       </div>
