@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
-
 import { useRouter } from 'next/router'
+import { toast } from 'react-toastify'
+import axios from 'axios'
 import { FaCloudUploadAlt } from 'react-icons/fa'
 import { MdDelete } from 'react-icons/md'
-import axios from 'axios'
+
+import { UPLOAD_URL } from '@/config/index'
 
 import Layout from '@/components/main/Layout'
 // import useAuthStore from '../store/authStore'
@@ -17,6 +19,7 @@ export default function Upload() {
   const [loading, setLoading] = useState(false)
   const [savingPost, setSavingPost] = useState(false)
   const [videoAsset, setVideoAsset] = useState()
+  const [progress, setProgress] = useState(0)
   const [wrongFileType, setWrongFileType] = useState(false)
 
   // const userProfile = useAuthStore((state) => state.userProfile)
@@ -28,26 +31,47 @@ export default function Upload() {
   // }, [userProfile, router])
 
   const uploadVideo = async (e) => {
-    const selectedFile = e.target.files[0]
-    const fileTypes = ['video/mp4', 'video/webm', 'video/ogg']
+    try {
+      const selectedFile = e.target.files[0]
+      const fileTypes = ['video/mp4', 'video/webm', 'video/ogg']
 
-    // uploading asset to sanity
-    if (fileTypes.includes(selectedFile.type)) {
-      setWrongFileType(false)
-      setLoading(true)
+      // uploading asset to google
+      if (fileTypes.includes(selectedFile.type)) {
+        setWrongFileType(false)
+        setLoading(true)
 
-      // client.assets
-      //   .upload('file', selectedFile, {
-      //     contentType: selectedFile.type,
-      //     filename: selectedFile.name,
-      //   })
-      //   .then((data) => {
-      //     setVideoAsset(data)
-      //     setLoading(false)
-      //   })
-    } else {
+        const videoData = new FormData()
+        videoData.append('file', selectedFile)
+        videoData.append('fileName', 'file001')
+
+        const { data } = await axios.post(
+          `${UPLOAD_URL}/UploadFile`,
+          videoData,
+          {
+            onUploadProgress: (e) => {
+              setProgress(Math.round((100 * e.loaded) / e.total))
+            },
+          }
+        )
+
+        setVideoAsset(data)
+        setLoading(false)
+
+        // client.assets
+        //   .upload('file', selectedFile, {
+        //     contentType: selectedFile.type,
+        //     filename: selectedFile.name,
+        //   })
+        //   .then((data) => {
+        //     setVideoAsset(data)
+        //     setLoading(false)
+        //   })
+      } else {
+        setLoading(false)
+        setWrongFileType(true)
+      }
+    } catch (err) {
       setLoading(false)
-      setWrongFileType(true)
     }
   }
 
@@ -87,7 +111,6 @@ export default function Upload() {
   }
 
   return (
-    // <div className='flex w-full h-full mb-10 p-5 lg:p-10 bg-[#F8F8F8] justify-center'>
     <div className=' bg-white rounded-lg xl:h-[80vh] flex gap-6 flex-wrap justify-center items-center p-14 pt-6'>
       <div>
         <div>
@@ -121,7 +144,7 @@ export default function Upload() {
                       Up to 10 minutes <br />
                       Less than 2 GB
                     </p>
-                    <p className='bg-[#F51997] text-center mt-8 rounded text-white text-md font-medium p-2 w-52 outline-none'>
+                    <p className='bg-indigo-500 text-center mt-8 rounded text-white text-md font-medium p-2 w-52 outline-none'>
                       Select file
                     </p>
                   </div>
@@ -199,14 +222,13 @@ export default function Upload() {
             disabled={videoAsset?.url ? false : true}
             onClick={handlePost}
             type='button'
-            className='bg-[#F51997] text-white text-md font-medium p-2 rounded w-28 lg:w-44 outline-none'
+            className='bg-indigo-500 text-white text-md font-medium p-2 rounded w-28 lg:w-44 outline-none'
           >
             {savingPost ? 'Posting...' : 'Post'}
           </button>
         </div>
       </div>
     </div>
-    // </div>
   )
 }
 
