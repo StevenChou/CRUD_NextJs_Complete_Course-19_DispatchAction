@@ -56,7 +56,7 @@ export default function Upload() {
 
         setVideoAsset(data)
         setLoading(false)
-
+        toast('上傳成功.')
         // client.assets
         //   .upload('file', selectedFile, {
         //     contentType: selectedFile.type,
