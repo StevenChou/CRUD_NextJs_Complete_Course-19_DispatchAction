@@ -56,7 +56,7 @@ export default function Upload() {
 
         setVideoAsset(data)
         setLoading(false)
-        toast('上傳成功.')
+
         // client.assets
         //   .upload('file', selectedFile, {
         //     contentType: selectedFile.type,
@@ -72,6 +72,7 @@ export default function Upload() {
       }
     } catch (err) {
       setLoading(false)
+      toast('Video upload failed')
     }
   }
 
@@ -121,9 +122,17 @@ export default function Upload() {
         </div>
         <div className=' border-dashed rounded-xl border-4 border-gray-200 flex flex-col justify-center items-center  outline-none mt-10 w-[260px] h-[458px] p-10 cursor-pointer hover:border-red-300 hover:bg-gray-100'>
           {loading ? (
-            <p className='text-center text-3xl text-red-400 font-semibold'>
-              Uploading...
-            </p>
+            <>
+              <p className='text-center text-3xl text-red-400 font-semibold'>
+                Uploading...{progress}%
+              </p>
+              <div className='w-full mt-2 bg-gray-200 rounded-full h-2.5 dark:bg-gray-700'>
+                <div
+                  className='bg-blue-600 h-2.5 rounded-full'
+                  style={{ width: `${progress}%` }}
+                ></div>
+              </div>
+            </>
           ) : (
             <div>
               {!videoAsset ? (
