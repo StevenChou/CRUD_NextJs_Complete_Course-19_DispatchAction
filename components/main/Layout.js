@@ -12,6 +12,9 @@ export default function Layout({ children }) {
         <div className='mt-4 flex flex-col gap-10 overflow-auto h-[88hv] videos flex-1'>
           {children}
         </div>
+        {/* <div className='mt-4 flex flex-col gap-10 overflow-auto videos flex-1'>
+          {children}
+        </div> */}
       </div>
     </>
   )
