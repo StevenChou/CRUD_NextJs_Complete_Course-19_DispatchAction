@@ -31,13 +31,13 @@ export default function Upload() {
   //   if (!userProfile) router.push('/')
   // }, [userProfile, router])
 
-  const uploadVideo = async (e) => {
+  const handleVideoUpload = async (e) => {
     try {
       const selectedFile = e.target.files[0]
       const fileTypes = ['video/mp4', 'video/webm', 'video/ogg']
       // 30MB
       const fileSize = Math.round(selectedFile.size / 1024 / 1024)
-      const limitSize = 7
+      const limitSize = 30
 
       if (fileSize > limitSize) {
         setWrongFileSize(true)
@@ -74,6 +74,23 @@ export default function Upload() {
     } catch (err) {
       setLoading(false)
       toast('Video upload failed')
+    }
+  }
+
+  const handleVideoRemove = async () => {
+    try {
+      setLoading(true)
+      const { data } = await axios.post(
+        `/api/course/video-remove/${course.instructor._id}`,
+        values.video
+      )
+      console.log(data)
+      // setValues({ ...values, video: {} })
+      setLoading(false)
+      // setUploadButtonText('Upload another video')
+    } catch (err) {
+      setLoading(false)
+      toast('Video remove failed')
     }
   }
 
@@ -161,7 +178,7 @@ export default function Upload() {
                   <input
                     type='file'
                     name='upload-video'
-                    onChange={(e) => uploadVideo(e)}
+                    onChange={(e) => handleVideoUpload(e)}
                     className='w-0 h-0'
                   />
                 </label>
