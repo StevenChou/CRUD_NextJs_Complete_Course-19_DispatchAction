@@ -23,6 +23,11 @@ export default function Upload() {
   const [wrongFileType, setWrongFileType] = useState(false)
   const [wrongFileSize, setWrongFileSize] = useState(false)
 
+  // image
+  const [image, setImage] = useState({})
+  const [preview, setPreview] = useState('')
+  const [imgLoading, setImgLoading] = useState(false)
+
   // const userProfile = useAuthStore((state) => state.userProfile)
   const router = useRouter()
 
@@ -77,6 +82,29 @@ export default function Upload() {
     }
   }
 
+  const handleImage = async (e) => {
+    let selectedFile = e.target.files[0]
+    setPreview(window.URL.createObjectURL(selectedFile))
+    // setUploadButtonText(file.name)
+    setImgLoading(true)
+
+    try {
+      const imageData = new FormData()
+      imageData.append('file', selectedFile)
+      imageData.append('fileName', 'image001')
+
+      let { data } = await axios.post(`${UPLOAD_URL}/UploadFile`, imageData)
+      console.log('IMAGE UPLOADED', data)
+      // set image in the state
+      setImage(data)
+      setImgLoading(false)
+    } catch (err) {
+      console.log(err)
+      setImgLoading(false)
+      toast('Image upload failed. Try later.')
+    }
+  }
+
   const handleVideoRemove = async () => {
     try {
       setLoading(true)
@@ -91,6 +119,22 @@ export default function Upload() {
     } catch (err) {
       setLoading(false)
       toast('Video remove failed')
+    }
+  }
+
+  const handleImageRemove = async () => {
+    try {
+      // console.log(values);
+      setValues({ ...values, loading: true })
+      const res = await axios.post('/api/course/remove-image', { image })
+      setImage({})
+      setPreview('')
+      setUploadButtonText('Upload Image')
+      setValues({ ...values, loading: false })
+    } catch (err) {
+      console.log(err)
+      setValues({ ...values, loading: false })
+      toast('Image upload failed. Try later.')
     }
   }
 
@@ -217,6 +261,18 @@ export default function Upload() {
         )}
       </div>
       <div className='flex flex-col gap-3 pb-10'>
+        <label className='text-md font-medium '>
+          Upload image
+          <input
+            type='file'
+            name='image'
+            onChange={handleImage}
+            accept='image/*'
+            hidden
+          />
+        </label>
+        {preview && <img height='50px' width='50px' src={preview} />}
+
         <label className='text-md font-medium '>Caption</label>
         <input
           type='text'
