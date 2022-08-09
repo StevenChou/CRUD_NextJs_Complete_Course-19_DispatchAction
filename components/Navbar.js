@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 // import { GoogleLogin, googleLogout } from '@react-oauth/google'
 import { AiOutlineLogout } from 'react-icons/ai'
+import { TbPlayerPlay } from 'react-icons/tb'
 import { BiSearch } from 'react-icons/bi'
 import { IoMdAdd } from 'react-icons/io'
 
@@ -63,6 +64,12 @@ const Navbar = () => {
       <div>
         {userProfile ? (
           <div className='flex gap-5 md:gap-10'>
+            <Link href='/player'>
+              <button className='border-2 px-2 md:px-4 text-md font-semibold flex items-center gap-2'>
+                <TbPlayerPlay className='text-xl' />{' '}
+                <span className='hidden md:block'>Video Player </span>
+              </button>
+            </Link>
             <Link href='/upload'>
               <button className='border-2 px-2 md:px-4 text-md font-semibold flex items-center gap-2'>
                 <IoMdAdd className='text-xl' />{' '}
