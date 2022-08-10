@@ -3,6 +3,7 @@ import ReactPlayer from 'react-player/lazy'
 
 import Layout from '@/components/main/Layout'
 
+// url: "http://34.111.168.133/01/538262340028387?Expires=1660137947&KeyName=cdnkey&Signature=w_1ic_0sM4T6P_ModQTVpwRLe9Q="
 // TODO: 檔案大小(由後台計算)
 // TODO: 播放次數
 // TODO: 影片總秒數
@@ -23,7 +24,13 @@ export default function Player() {
   })
 
   const course = {
-    lessons: [{ video: { Location: 'https://youtu.be/1Fmfr2Q23sk' } }],
+    lessons: [
+      {
+        video: {
+          Location: 'https://youtu.be/1Fmfr2Q23sk',
+        },
+      },
+    ],
   }
 
   const handlePlay = (e) => {
@@ -133,7 +140,7 @@ export default function Player() {
             onPause={handlePause}
             onPlaybackRateChange={handleOnPlaybackRateChange}
             onProgress={handleProgress}
-            onSeek={(e) => alert('seek')}
+            onSeek={(e) => console.log('seek')}
           />
         </div>
       </div>
