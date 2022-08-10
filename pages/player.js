@@ -1,9 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import ReactPlayer from 'react-player/lazy'
 
 import Layout from '@/components/main/Layout'
-
-import { topics } from '../utils/constants'
 
 // TODO: 檔案大小(由後台計算)
 // TODO: 播放次數
@@ -11,22 +9,27 @@ import { topics } from '../utils/constants'
 // TODO: 暫停次數
 // TODO: 快播放次數
 // TODO: 慢播放次數
+// TODO: 拖拉時間軸(次數與位置)
 export default function Player() {
   const [playerData, setPlayData] = useState({
+    buffer: false,
+    playing: false,
     playCount: 0,
     duration: 0,
     pauseCount: 0,
     fastPlayCount: 0,
     slowPlayCount: 0,
+    playedArray: [],
   })
 
   const course = {
     lessons: [{ video: { Location: 'https://youtu.be/1Fmfr2Q23sk' } }],
   }
 
-  const handlePlay = () => {
+  const handlePlay = (e) => {
+    console.log('*** Play:', e)
     setPlayData((pre) => {
-      return { ...pre, playCount: pre.playCount + 1 }
+      return { ...pre, playing: true, playCount: pre.playCount + 1 }
     })
   }
 
@@ -36,9 +39,10 @@ export default function Player() {
     })
   }
 
-  const handlePause = () => {
+  const handlePause = (e) => {
+    console.log('*** Pause:', e)
     setPlayData((pre) => {
-      return { ...pre, pauseCount: pre.pauseCount + 1 }
+      return { ...pre, playing: false, pauseCount: pre.pauseCount + 1 }
     })
   }
 
@@ -59,7 +63,46 @@ export default function Player() {
 
       return
     }
-    // this.setState({ playbackRate: parseFloat(speed) })
+  }
+
+  const handleProgress = ({ playedSeconds, played }) => {
+    // console.log('onProgress')
+    // console.log('playing', playerData.playing)
+
+    if (!playerData.playing) {
+      console.log('*** 暫停中...紀錄')
+      setPlayData((pre) => {
+        return {
+          ...pre,
+          playedArray: [
+            ...pre.playedArray,
+            { playedSeconds, played, playing: pre.playing },
+          ],
+        }
+      })
+
+      return
+    }
+
+    if (playerData.playing && playerData.buffer) {
+      console.log('*** 播放中...紀錄')
+      setPlayData((pre) => {
+        return {
+          ...pre,
+          buffer: false,
+          playedArray: [
+            ...pre.playedArray,
+            {
+              playedSeconds,
+              played,
+              playing: pre.playing,
+            },
+          ],
+        }
+      })
+
+      return
+    }
   }
 
   return (
@@ -78,11 +121,19 @@ export default function Player() {
             width='100%'
             height='100%'
             controls
-            onEnded={(e) => console.log('*** e:', e)}
+            progressInterval={2000}
             onPlay={handlePlay}
             onDuration={handleDuration}
+            onBuffer={(e) => {
+              console.log('*** Buffer:', e)
+              setPlayData((pre) => {
+                return { ...pre, buffer: true }
+              })
+            }}
             onPause={handlePause}
             onPlaybackRateChange={handleOnPlaybackRateChange}
+            onProgress={handleProgress}
+            onSeek={(e) => alert('seek')}
           />
         </div>
       </div>
@@ -101,6 +152,10 @@ export default function Player() {
         </label>
         <label className='text-md font-medium '>
           慢速播放次數 {playerData.slowPlayCount} 次
+        </label>
+        <label className='text-md font-medium '>
+          拖拉時間軸(次數與位置) {playerData.playedArray.length} 次
+          <p>{JSON.stringify(playerData.playedArray)}</p>
         </label>
       </div>
     </div>
